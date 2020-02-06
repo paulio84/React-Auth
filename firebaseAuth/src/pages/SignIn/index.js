@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
   state = {
+    firstname: "",
+    lastname: "",
     email: "",
     password: ""
   }
@@ -20,6 +22,26 @@ class SignIn extends Component {
         <div>
           <p>Sign In</p>
           <form>
+            <div>
+              <label htmlFor="email">Firstname</label>
+              <input
+                id="firstname"
+                type="text"
+                name="firstname"
+                value={this.state.firstname}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
+            <div>
+              <label htmlFor="email">Lastname</label>
+              <input
+                id="lastname"
+                type="text"
+                name="lastname"
+                value={this.state.lastname}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
             <div>
               <label htmlFor="email">Email</label>
               <input
