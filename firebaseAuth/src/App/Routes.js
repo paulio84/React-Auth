@@ -8,6 +8,7 @@ import {
 
 import PageNotFound from '../pages/PageNotFound';
 import Profile from '../pages/Profile';
+import PublicPage from '../pages/PublicPage';
 import Register from '../pages/Register';
 import SignIn from '../pages/SignIn';
 
@@ -15,7 +16,10 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Redirect exact from='/' to='/profile' />
+        <Redirect exact from='/' to='/public' />
+        <Route path='/public'>
+          <PublicPage />
+        </Route>
         <Route path='/profile'>
           <Profile />
         </Route>
