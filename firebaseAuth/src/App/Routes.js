@@ -19,7 +19,7 @@ const Routes = () => {
         <Route path='/profile'>
           <Profile />
         </Route>
-        <Route path='/signIn'>
+        <Route path='/signin'>
           <SignIn />
         </Route>
         <Route path='/register'>
