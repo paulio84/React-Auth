@@ -1,9 +1,52 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class SignIn extends Component {
+  state = {
+    email: "",
+    password: ""
+  }
+
+  handleOnChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   render() {
     return (
-      <div>SignIn Page</div>
+      <div>
+        <h1>ReactAuth</h1>
+        <div>
+          <p>Sign In</p>
+          <form>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
+            <div>
+              <button>Sign In</button>
+            </div>
+            <p>Need an account? <Link to='/register'>Register</Link></p>
+          </form>
+        </div>
+      </div>
     );
   }
 }
