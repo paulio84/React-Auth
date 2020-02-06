@@ -1,0 +1,52 @@
+{
+  "name": "firebase-auth",
+  "version": "0.1.0",
+  "description": "A project using firebase authentication.",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development parcel src/public/index.html",
+    "build": "cross-env NODE_ENV=production parcel build src/public/index.html --public-url ./",
+    "test:eslint": "eslint src/ --ext .js --ext .jsx",
+    "pretest": "npm run test:eslint"
+  },
+  "keywords": [],
+  "author": "Paul Terry",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0",
+    "parcel-bundler": "^1.12.4",
+    "postcss-modules": "^1.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.18",
+    "react-router-dom": "^5.1.2",
+    "sass": "^1.24.4"
+  },
+  "postcss": {
+    "modules": true,
+    "plugins": {
+      "autoprefixer": {
+        "grid": true,
+        "flexbox": "no-2009"
+      }
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all",
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ]
+}
