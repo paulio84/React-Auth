@@ -1,16 +1,14 @@
 const initialState = {
-  profiles: [{
+  messages: [{
     id: 1,
     firstname: 'Paul',
     lastname: 'Terry',
     message: 'Some message',
-    occupation: 'Software Developer'
   }, {
     id: 2,
     firstname: 'Gemma',
     lastname: 'Lunn',
     message: 'Some other message',
-    occupation: 'AA'
   }]
 };
 
