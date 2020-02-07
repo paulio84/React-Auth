@@ -9,7 +9,7 @@ import {
 import Navbar from '../shared/components/Navbar';
 import PageNotFound from '../pages/PageNotFound';
 import Profile from '../pages/Profile';
-import PublicPage from '../pages/PublicPage';
+import Messages from '../pages/Messages';
 import Register from '../pages/Register';
 import SignIn from '../pages/SignIn';
 
@@ -18,9 +18,9 @@ const Routes = () => {
     <Router>
       <Navbar />
       <Switch>
-        <Redirect exact from='/' to='/public' />
-        <Route path='/public'>
-          <PublicPage />
+        <Redirect exact from='/' to='/messages' />
+        <Route path='/messages'>
+          <Messages />
         </Route>
         <Route path='/profile'>
           <Profile />

@@ -7,7 +7,7 @@ const SignedOutLinks = () => {
   return (
     <NavLinks>
       <NavLinksItem>
-        <NavLink to='/public'>Public Page</NavLink>
+        <NavLink to='/messages'>Messages</NavLink>
       </NavLinksItem>
       <NavLinksItem>
         <NavLink to='/signin'>Sign In</NavLink>

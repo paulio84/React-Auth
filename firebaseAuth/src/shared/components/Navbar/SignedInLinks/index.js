@@ -7,7 +7,7 @@ const SignedInLinks = () => {
   return (
     <NavLinks>
       <NavLinksItem>
-        <NavLink to='/public'>Public Page</NavLink>
+        <NavLink to='/messages'>Messages</NavLink>
       </NavLinksItem>
       <NavLinksItem>
         <NavLink to='/profile'>My Profile</NavLink>

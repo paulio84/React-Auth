@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Message from './Message';
 
-class PublicPage extends Component {
+class Messages extends Component {
   render() {
     const { messages } = this.props;
 
@@ -18,7 +18,7 @@ class PublicPage extends Component {
     );
   }
 }
-PublicPage.propTypes = {
+Messages.propTypes = {
   messages: PropTypes.array.isRequired
 };
 
@@ -28,4 +28,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(PublicPage);
+export default connect(mapStateToProps)(Messages);
