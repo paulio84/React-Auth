@@ -6,7 +6,7 @@ import { StyledPageNotFound } from './Styles';
 const PageNotFound = () => {
   return (
     <StyledPageNotFound>
-      <p>404!</p>
+      <h1>404!</h1>
       <p>Doh! Page Doesn&apos;t Seem To Exist...</p>
       <Link to="/">Go Home</Link>
     </StyledPageNotFound>

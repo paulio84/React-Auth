@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const color = {
   textLightest: '#F8F8FF',
+  textDarkest: '#333',
   navbarBg: '#4682B4'
 };
 
