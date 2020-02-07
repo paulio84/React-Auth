@@ -18,9 +18,8 @@ class SignIn extends Component {
   render() {
     return (
       <div>
-        <h1>ReactAuth</h1>
+        <h1>Sign In</h1>
         <div>
-          <p>Sign In</p>
           <form>
             <div>
               <label htmlFor="email">Firstname</label>

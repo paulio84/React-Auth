@@ -16,9 +16,8 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <h1>ReactAuth</h1>
+        <h1>Register</h1>
         <div>
-          <p>Register</p>
           <form>
             <div>
               <label htmlFor="email">Email</label>
