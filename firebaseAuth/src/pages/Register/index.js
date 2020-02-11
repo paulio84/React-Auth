@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 import { signUpAction } from '../../store/actions/authActions';
 
+import Layout from '../../shared/components/Layout';
+
 import { StyledLink } from './Styles';
 
 class Register extends Component {
@@ -34,8 +36,7 @@ class Register extends Component {
     }
 
     return (
-      <div>
-        <h1>Register</h1>
+      <Layout title="Register">
         <div>
           <form onSubmit={this.handleOnSubmit}>
             <div>
@@ -88,7 +89,7 @@ class Register extends Component {
             </p>
           </form>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

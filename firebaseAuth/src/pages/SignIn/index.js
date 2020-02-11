@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 import { signInAction } from '../../store/actions/authActions';
 
+import Layout from '../../shared/components/Layout';
+
 import { StyledLink } from './Styles';
 
 class SignIn extends Component {
@@ -32,8 +34,7 @@ class SignIn extends Component {
     }
 
     return (
-      <div>
-        <h1>Sign In</h1>
+      <Layout title="Sign In">
         <div>
           <form onSubmit={this.handleOnSubmit}>
             <div>
@@ -66,7 +67,7 @@ class SignIn extends Component {
             </p>
           </form>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

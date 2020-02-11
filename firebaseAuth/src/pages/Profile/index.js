@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
+import Layout from '../../shared/components/Layout';
+
 const Profile = ({ auth, profile }) => {
   if (!auth.uid) {
     return <Redirect to='/signin' />;
@@ -12,8 +14,7 @@ const Profile = ({ auth, profile }) => {
   const profilePic = Math.floor(Math.random() * 10);
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <Layout title="Profile">
       <div>
         <img
           src={`https://randomuser.me/api/portraits/med/lego/${profilePic}.jpg`}
@@ -23,7 +24,7 @@ const Profile = ({ auth, profile }) => {
         <p>{profile.occupation}</p>
         <p>{profile.message}</p>
       </div>
-    </div>
+    </Layout>
   );
 };
 Profile.propTypes = {

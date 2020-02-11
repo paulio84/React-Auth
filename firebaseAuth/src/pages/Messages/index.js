@@ -4,18 +4,18 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
+import Layout from '../../shared/components/Layout';
 import Message from './Message';
 
 const Messages = ({ messages }) => {
   return (
-    <div>
-      <h1>Messages</h1>
+    <Layout title="Messages">
       <ul>
         {messages && messages.map(message =>
           <Message key={message.id} message={message} />
         )}
       </ul>
-    </div >
+    </Layout>
   );
 };
 Messages.propTypes = {
