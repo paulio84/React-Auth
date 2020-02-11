@@ -23,8 +23,6 @@ Messages.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
-
   return {
     messages: state.firestore.ordered.messages
   };

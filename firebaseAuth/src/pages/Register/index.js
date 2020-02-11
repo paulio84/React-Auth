@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { signUpAction } from '../../store/actions/authActions';
 
@@ -26,7 +27,11 @@ class Register extends Component {
   }
 
   render() {
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+
+    if (auth.uid) {
+      return <Redirect to='/' />;
+    }
 
     return (
       <div>
@@ -88,12 +93,14 @@ class Register extends Component {
   }
 }
 Register.propTypes = {
+  auth: PropTypes.object,
   authError: PropTypes.string,
   signUpAction: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.firebase.auth,
     authError: state.auth.authError
   };
 };

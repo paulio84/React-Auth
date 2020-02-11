@@ -1,20 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
 import { StyledHeader, SiteLogoLink } from './Styles';
 
-const Navbar = () => {
+const Navbar = ({ auth }) => {
   return (
     <StyledHeader>
       <SiteLogoLink to='/'>ReactAuth</SiteLogoLink>
       <nav>
-        <SignedInLinks />
-        <SignedOutLinks />
+        {auth.uid ? <SignedInLinks /> : <SignedOutLinks />}
       </nav>
     </StyledHeader>
   );
 };
+Navbar.propTypes = {
+  auth: PropTypes.object
+};
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

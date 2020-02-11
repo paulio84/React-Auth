@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { signInAction } from '../../store/actions/authActions';
 
@@ -24,7 +25,11 @@ class SignIn extends Component {
   }
 
   render() {
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+
+    if (auth.uid) {
+      return <Redirect to='/' />;
+    }
 
     return (
       <div>
@@ -66,12 +71,14 @@ class SignIn extends Component {
   }
 }
 SignIn.propTypes = {
+  auth: PropTypes.object,
   authError: PropTypes.string,
   signInAction: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.firebase.auth,
     authError: state.auth.authError
   };
 };

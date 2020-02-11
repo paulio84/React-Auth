@@ -1,24 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-class Profile extends Component {
-  render() {
-    const profilePic = Math.floor(Math.random() * 10);
+import PropTypes from 'prop-types';
 
-    return (
-      <div>
-        <h1>Profile</h1>
-        <div>
-          <img
-            src={`https://randomuser.me/api/portraits/med/lego/${profilePic}.jpg`}
-            alt='profile pic'
-          />
-          <p>Name</p>
-          <p>Occupation</p>
-          <p>Message</p>
-        </div>
-      </div>
-    );
+const Profile = ({ auth, profile }) => {
+  if (!auth.uid) {
+    return <Redirect to='/signin' />;
   }
-}
 
-export default Profile;
+  const profilePic = Math.floor(Math.random() * 10);
+
+  return (
+    <div>
+      <h1>Profile</h1>
+      <div>
+        <img
+          src={`https://randomuser.me/api/portraits/med/lego/${profilePic}.jpg`}
+          alt='profile pic'
+        />
+        <p>{`${profile.firstname} ${profile.lastname}`}</p>
+        <p>{profile.occupation}</p>
+        <p>{profile.message}</p>
+      </div>
+    </div>
+  );
+};
+Profile.propTypes = {
+  auth: PropTypes.object,
+  profile: PropTypes.object
+};
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  };
+};
+
+export default connect(mapStateToProps)(Profile);

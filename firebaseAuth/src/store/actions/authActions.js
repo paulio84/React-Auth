@@ -44,6 +44,7 @@ export const signOutAction = () => {
     firebase.auth().signOut()
       .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
       .catch(err => dispatch(dispatchAuthAction(AUTH_LOGOUT_FAIL, err)));
+    firebase.logout();
   };
 };
 

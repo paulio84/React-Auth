@@ -19,21 +19,11 @@ const Routes = () => {
       <Navbar />
       <Switch>
         <Redirect exact from='/' to='/messages' />
-        <Route path='/messages'>
-          <Messages />
-        </Route>
-        <Route path='/profile'>
-          <Profile />
-        </Route>
-        <Route path='/signin'>
-          <SignIn />
-        </Route>
-        <Route path='/register'>
-          <Register />
-        </Route>
-        <Route>
-          <PageNotFound />
-        </Route>
+        <Route path='/messages' component={Messages} />
+        <Route path='/profile' component={Profile} />
+        <Route path='/signin' component={SignIn} />
+        <Route path='/register' component={Register} />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );

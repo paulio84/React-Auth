@@ -9,6 +9,7 @@ export default createGlobalStyle`
 
   a {
     color: ${color.textLightest};
+    cursor: pointer;
     text-decoration: none;
   }
   a:hover {
