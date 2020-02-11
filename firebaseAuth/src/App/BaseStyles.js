@@ -7,7 +7,7 @@ export default createGlobalStyle`
     font-family: sans-serif;
   }
 
-  a, a:visited, a:active, a:link {
+  a {
     color: ${color.textLightest};
     text-decoration: none;
   }

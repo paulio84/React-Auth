@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
+import { StyledLink } from './Styles';
 
 class Register extends Component {
   state = {
+    firstname: "",
+    lastname: "",
     email: "",
     password: ""
   };
@@ -19,6 +22,26 @@ class Register extends Component {
         <h1>Register</h1>
         <div>
           <form>
+            <div>
+              <label htmlFor="email">Firstname</label>
+              <input
+                id="firstname"
+                type="text"
+                name="firstname"
+                value={this.state.firstname}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
+            <div>
+              <label htmlFor="email">Lastname</label>
+              <input
+                id="lastname"
+                type="text"
+                name="lastname"
+                value={this.state.lastname}
+                onChange={this.handleOnChange}
+                autoComplete="off" />
+            </div>
             <div>
               <label htmlFor="email">Email</label>
               <input
@@ -42,7 +65,7 @@ class Register extends Component {
             <div>
               <button>Continue</button>
             </div>
-            <p>Already got an account? <Link to='/signin'>Sign In</Link></p>
+            <p>Already got an account? <StyledLink to='/signin'>Sign In</StyledLink></p>
           </form>
         </div>
       </div>

@@ -7,7 +7,7 @@ export const StyledPageNotFound = styled.div`
   text-align: center;
   width: 100%;
 
-  a, a:link, a:visited, a:active {
-    color: ${color.textDarkest}
+  a {
+    color: ${color.textDarkest};
   }
 `;

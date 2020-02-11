@@ -10,7 +10,7 @@ class Messages extends Component {
 
     return (
       <div>
-        <h1>Public Page</h1>
+        <h1>Messages</h1>
         <ul>
           {messages.map(message => <Message key={message.id} message={message} />)}
         </ul>
