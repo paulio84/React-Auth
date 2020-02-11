@@ -1,17 +1,23 @@
 /* global module */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { getFirebase, ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
+import thunk from 'redux-thunk';
 
 import rootReducer from './store/reducers/rootReducer';
 import firebaseConfig from './shared/config/firebaseConfig';
 
 import App from './App';
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase }))
+  )
+);
 
 const ReactReduxFirebaseProps = {
   firebase: firebaseConfig,

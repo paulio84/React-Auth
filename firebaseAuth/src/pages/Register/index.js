@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { signUpAction } from '../../store/actions/authActions';
 
 import { StyledLink } from './Styles';
 
@@ -16,12 +20,19 @@ class Register extends Component {
     });
   }
 
+  handleOnSubmit = e => {
+    e.preventDefault();
+    this.props.signUpAction(this.state);
+  }
+
   render() {
+    const { authError } = this.props;
+
     return (
       <div>
         <h1>Register</h1>
         <div>
-          <form>
+          <form onSubmit={this.handleOnSubmit}>
             <div>
               <label htmlFor="email">Firstname</label>
               <input
@@ -64,13 +75,33 @@ class Register extends Component {
             </div>
             <div>
               <button>Continue</button>
+              {authError ? <p>{authError}</p> : null}
             </div>
-            <p>Already got an account? <StyledLink to='/signin'>Sign In</StyledLink></p>
+            <p>
+              Already got an account?
+              <StyledLink to='/signin'>Sign In</StyledLink>
+            </p>
           </form>
         </div>
       </div>
     );
   }
 }
+Register.propTypes = {
+  authError: PropTypes.string,
+  signUpAction: PropTypes.func
+};
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUpAction: (newUser) => dispatch(signUpAction(newUser))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
