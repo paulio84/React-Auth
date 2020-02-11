@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 const Message = ({ message }) => (
   <li>
-    <span>{`${message.firstname} ${message.lastname}`}</span>
-    <span>{message.message}</span>
+    <span>{`${message.authorFirstName} ${message.authorLastName}`}</span>
+    <span>{message.text}</span>
   </li>
 );
 Message.propTypes = {
   message: PropTypes.shape({
-    firstname: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired
+    authorFirstName: PropTypes.string.isRequired,
+    authorLastName: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
   }).isRequired
 };
 
