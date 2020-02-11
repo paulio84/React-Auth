@@ -5,6 +5,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import AuthIsLoaded from './AuthIsLoaded';
 
 import Navbar from '../shared/components/Navbar';
 import PageNotFound from '../pages/PageNotFound';
@@ -16,15 +17,17 @@ import SignIn from '../pages/SignIn';
 const Routes = () => {
   return (
     <Router>
-      <Navbar />
-      <Switch>
-        <Redirect exact from='/' to='/messages' />
-        <Route path='/messages' component={Messages} />
-        <Route path='/profile' component={Profile} />
-        <Route path='/signin' component={SignIn} />
-        <Route path='/register' component={Register} />
-        <Route component={PageNotFound} />
-      </Switch>
+      <AuthIsLoaded>
+        <Navbar />
+        <Switch>
+          <Redirect exact from='/' to='/messages' />
+          <Route path='/messages' component={Messages} />
+          <Route path='/profile' component={Profile} />
+          <Route path='/signin' component={SignIn} />
+          <Route path='/register' component={Register} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </AuthIsLoaded>
     </Router>
   );
 };

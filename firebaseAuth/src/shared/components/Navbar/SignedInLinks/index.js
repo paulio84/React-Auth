@@ -17,7 +17,7 @@ const SignedInLinks = ({ signOutAction }) => {
         <NavLink to='/profile'>My Profile</NavLink>
       </NavLinksItem>
       <NavLinksItem>
-        <a href="#!" onClick={signOutAction}>Sign Out</a>
+        <a onClick={signOutAction}>Sign Out</a>
       </NavLinksItem>
     </NavLinks>
   );
