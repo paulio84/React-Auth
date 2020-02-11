@@ -29,10 +29,26 @@ export const signUpAction = (newUser) => {
 export const signInAction = (userCredentials) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+    const firestore = firebase.firestore();
     const { email, password } = userCredentials;
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
+      .then(userCredential => {
+        const { user } = userCredential;
+
+        // we need to get the users message
+        return firestore
+          .collection('messages')
+          .where('authorId', '==', user.uid)
+          .get();
+      })
+      .then(snapshot => {
+        // update the profile with the users message
+        const { text } = snapshot.docs[0].data();
+        firebase.updateProfile({ message: text });
+
+        dispatch(dispatchAuthAction(AUTH_SUCCESS));
+      })
       .catch(err => dispatch(dispatchAuthAction(AUTH_LOGIN_FAIL, err)));
   };
 };
