@@ -1,4 +1,9 @@
-import { AUTH_SUCCESS, AUTH_FAIL } from '../../shared/utils/Constants';
+import {
+  AUTH_SUCCESS,
+  AUTH_LOGIN_FAIL,
+  AUTH_LOGOUT_FAIL,
+  AUTH_REGISTER_FAIL
+} from '../../shared/utils/Constants';
 
 export const signUpAction = (newUser) => {
   return (dispatch, getState, { getFirebase }) => {
@@ -16,8 +21,19 @@ export const signUpAction = (newUser) => {
           occupation: ''
         });
       })
-      .then(() => dispatch(dispatchAuthSuccess()))
-      .catch(err => dispatch(dispatchAuthFail(err)));
+      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
+      .catch(err => dispatch(dispatchAuthAction(AUTH_REGISTER_FAIL, err)));
+  };
+};
+
+export const signInAction = (userCredentials) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const { email, password } = userCredentials;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
+      .catch(err => dispatch(dispatchAuthAction(AUTH_LOGIN_FAIL, err)));
   };
 };
 
@@ -26,20 +42,14 @@ export const signOutAction = () => {
     const firebase = getFirebase();
 
     firebase.auth().signOut()
-      .then(() => dispatch(dispatchAuthSuccess()))
-      .catch(err => dispatch(dispatchAuthFail(err)));
+      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
+      .catch(err => dispatch(dispatchAuthAction(AUTH_LOGOUT_FAIL, err)));
   };
 };
 
-function dispatchAuthSuccess() {
-  return {
-    type: AUTH_SUCCESS
-  };
-}
-
-function dispatchAuthFail(error) {
-  return {
-    type: AUTH_FAIL,
-    error
-  };
+function dispatchAuthAction(type, payload) {
+  if (payload === undefined)
+    return { type };
+  else
+    return { type, payload };
 }

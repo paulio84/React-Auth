@@ -1,2 +1,4 @@
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
-export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
+export const AUTH_LOGOUT_FAIL = 'AUTH_LOGOUT_FAIL';
+export const AUTH_REGISTER_FAIL = 'AUTH_REGISTER_FAIL';

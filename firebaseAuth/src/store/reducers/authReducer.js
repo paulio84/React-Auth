@@ -1,4 +1,9 @@
-import { AUTH_SUCCESS, AUTH_FAIL } from '../../shared/utils/Constants';
+import {
+  AUTH_SUCCESS,
+  AUTH_LOGIN_FAIL,
+  AUTH_LOGOUT_FAIL,
+  AUTH_REGISTER_FAIL
+} from '../../shared/utils/Constants';
 
 const initialState = {
   authError: null
@@ -11,7 +16,22 @@ const authReducer = (state = initialState, action) => {
         ...state,
         authError: null
       };
-    case AUTH_FAIL:
+    case AUTH_LOGIN_FAIL:
+      console.debug('auth login fail');
+
+      return {
+        ...state,
+        authError: "Incorrect email address or password."
+      };
+    case AUTH_LOGOUT_FAIL:
+      console.debug('auth logout fail');
+
+      return {
+        ...state,
+        authError: action.error.message
+      };
+    case AUTH_REGISTER_FAIL:
+      console.debug('auth register fail');
       return {
         ...state,
         authError: action.error.message
