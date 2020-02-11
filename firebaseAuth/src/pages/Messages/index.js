@@ -11,7 +11,9 @@ const Messages = ({ messages }) => {
     <div>
       <h1>Messages</h1>
       <ul>
-        {messages && messages.map(message => <Message key={message.id} message={message} />)}
+        {messages && messages.map(message =>
+          <Message key={message.id} message={message} />
+        )}
       </ul>
     </div >
   );
@@ -21,6 +23,8 @@ Messages.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
+
   return {
     messages: state.firestore.ordered.messages
   };

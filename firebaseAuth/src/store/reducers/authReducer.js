@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAIL } from '../../shared/utils/Constants';
+import { AUTH_SUCCESS, AUTH_FAIL } from '../../shared/utils/Constants';
 
 const initialState = {
   authError: null
@@ -6,12 +6,12 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SIGNUP_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         authError: null
       };
-    case SIGNUP_FAIL:
+    case AUTH_FAIL:
       return {
         ...state,
         authError: action.error.message

@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAIL } from '../../shared/utils/Constants';
+import { AUTH_SUCCESS, AUTH_FAIL } from '../../shared/utils/Constants';
 
 export const signUpAction = (newUser) => {
   return (dispatch, getState, { getFirebase }) => {
@@ -16,24 +16,30 @@ export const signUpAction = (newUser) => {
           occupation: ''
         });
       })
-      .then(() => {
-        dispatch(dispatchSignUpSuccess());
-      })
-      .catch(err => {
-        dispatch(dispatchSignUpFailure(err));
-      });
+      .then(() => dispatch(dispatchAuthSuccess()))
+      .catch(err => dispatch(dispatchAuthFail(err)));
   };
 };
 
-function dispatchSignUpSuccess() {
+export const signOutAction = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    firebase.auth().signOut()
+      .then(() => dispatch(dispatchAuthSuccess()))
+      .catch(err => dispatch(dispatchAuthFail(err)));
+  };
+};
+
+function dispatchAuthSuccess() {
   return {
-    type: SIGNUP_SUCCESS
+    type: AUTH_SUCCESS
   };
 }
 
-function dispatchSignUpFailure(error) {
+function dispatchAuthFail(error) {
   return {
-    type: SIGNUP_FAIL,
+    type: AUTH_FAIL,
     error
   };
 }

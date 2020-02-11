@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import { signOutAction } from '../../../../store/actions/authActions';
 
 import { NavLinks, NavLinksItem } from '../../../utils/Styles';
 
-const SignedInLinks = () => {
+const SignedInLinks = ({ signOutAction }) => {
   return (
     <NavLinks>
       <NavLinksItem>
@@ -12,9 +16,20 @@ const SignedInLinks = () => {
       <NavLinksItem>
         <NavLink to='/profile'>My Profile</NavLink>
       </NavLinksItem>
-      <NavLinksItem>Sign Out</NavLinksItem>
+      <NavLinksItem>
+        <a href="#!" onClick={signOutAction}>Sign Out</a>
+      </NavLinksItem>
     </NavLinks>
   );
 };
+SignedInLinks.propTypes = {
+  signOutAction: PropTypes.func
+};
 
-export default SignedInLinks;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOutAction: () => dispatch(signOutAction())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignedInLinks);
