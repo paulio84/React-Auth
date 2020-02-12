@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 import { signUpAction } from '../../store/actions/authActions';
 
+import Button from '../../shared/components/Form/Controls/Button';
+import Input from '../../shared/components/Form/Controls/Input';
 import Layout from '../../shared/components/Layout';
 
 import { StyledLink } from './Styles';
@@ -39,50 +41,33 @@ class Register extends Component {
       <Layout title="Register">
         <div>
           <form onSubmit={this.handleOnSubmit}>
-            <div>
-              <label htmlFor="email">Firstname</label>
-              <input
-                id="firstname"
-                type="text"
-                name="firstname"
-                value={this.state.firstname}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <label htmlFor="email">Lastname</label>
-              <input
-                id="lastname"
-                type="text"
-                name="lastname"
-                value={this.state.lastname}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <button>Continue</button>
+            <Input
+              id="firstname"
+              type="text"
+              name="firstname"
+              value={this.state.firstname}
+              onChange={this.handleOnChange} />
+            <Input
+              id="lastname"
+              type="text"
+              name="lastname"
+              value={this.state.lastname}
+              onChange={this.handleOnChange} />
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleOnChange} />
+            <Input
+              id="password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleOnChange} />
+            <Button type="submit" text="Register">
               {authError ? <p>{authError}</p> : null}
-            </div>
+            </Button>
             <p>
               Already got an account?
               <StyledLink to='/signin'>Sign In</StyledLink>

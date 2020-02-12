@@ -12,7 +12,12 @@ export default createGlobalStyle`
     cursor: pointer;
     text-decoration: none;
   }
+
   a:hover {
     text-decoration: underline;
+  }
+
+  label {
+    text-transform: capitalize; 
   }
 `;

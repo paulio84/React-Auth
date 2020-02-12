@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 import { signInAction } from '../../store/actions/authActions';
 
+import Button from '../../shared/components/Form/Controls/Button';
+import Input from '../../shared/components/Form/Controls/Input';
 import Layout from '../../shared/components/Layout';
 
 import { StyledLink } from './Styles';
@@ -37,30 +39,21 @@ class SignIn extends Component {
       <Layout title="Sign In">
         <div>
           <form onSubmit={this.handleOnSubmit}>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleOnChange}
-                autoComplete="off" />
-            </div>
-            <div>
-              <button>Sign In</button>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleOnChange} />
+            <Input
+              id="password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleOnChange} />
+            <Button type="submit" text="Sign In">
               {authError ? <p>{authError}</p> : null}
-            </div>
+            </Button>
             <p>
               Need an account?
               <StyledLink to='/register'>Register</StyledLink>
