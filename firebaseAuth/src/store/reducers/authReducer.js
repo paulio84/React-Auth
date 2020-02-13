@@ -17,24 +17,19 @@ const authReducer = (state = initialState, action) => {
         authError: null
       };
     case AUTH_LOGIN_FAIL:
-      console.log('auth login fail');
-
       return {
         ...state,
         authError: "Incorrect email address or password."
       };
     case AUTH_LOGOUT_FAIL:
-      console.log('auth logout fail');
-
       return {
         ...state,
-        authError: action.error.message
+        authError: action.payload.message
       };
     case AUTH_REGISTER_FAIL:
-      console.log('auth register fail');
       return {
         ...state,
-        authError: action.error.message
+        authError: action.payload.message
       };
     default:
       return state;

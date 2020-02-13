@@ -1,3 +1,4 @@
+import { dispatchAction } from '../../shared/utils/Helpers';
 import {
   AUTH_SUCCESS,
   AUTH_LOGIN_FAIL,
@@ -21,8 +22,8 @@ export const signUpAction = (newUser) => {
           occupation: ''
         });
       })
-      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
-      .catch(err => dispatch(dispatchAuthAction(AUTH_REGISTER_FAIL, err)));
+      .then(() => dispatch(dispatchAction(AUTH_SUCCESS)))
+      .catch(err => dispatch(dispatchAction(AUTH_REGISTER_FAIL, err)));
   };
 };
 
@@ -47,9 +48,9 @@ export const signInAction = (userCredentials) => {
         const { text } = snapshot.docs[0].data();
         firebase.updateProfile({ message: text });
 
-        dispatch(dispatchAuthAction(AUTH_SUCCESS));
+        dispatch(dispatchAction(AUTH_SUCCESS));
       })
-      .catch(err => dispatch(dispatchAuthAction(AUTH_LOGIN_FAIL, err)));
+      .catch(err => dispatch(dispatchAction(AUTH_LOGIN_FAIL, err)));
   };
 };
 
@@ -58,15 +59,8 @@ export const signOutAction = () => {
     const firebase = getFirebase();
 
     firebase.auth().signOut()
-      .then(() => dispatch(dispatchAuthAction(AUTH_SUCCESS)))
-      .catch(err => dispatch(dispatchAuthAction(AUTH_LOGOUT_FAIL, err)));
+      .then(() => dispatch(dispatchAction(AUTH_SUCCESS)))
+      .catch(err => dispatch(dispatchAction(AUTH_LOGOUT_FAIL, err)));
     firebase.logout();
   };
 };
-
-function dispatchAuthAction(type, payload) {
-  if (payload === undefined)
-    return { type };
-  else
-    return { type, payload };
-}
