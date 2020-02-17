@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
@@ -20,8 +19,15 @@ class Profile extends Component {
     this.state = { message: this.props.profile.message || '' };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.authExists) {
+      nextProps.history.push('/signin');
+    }
+    return prevState;
+  }
+
   componentDidUpdate(prevProps) {
-    if (prevProps.profile.message !== this.props.profile.message) {
+    if (prevProps.profile.message !== this.props.profile.message && this.props.authExists) {
       this.props.getProfileMessageAction();
       this.setState({
         message: this.props.profile.message
@@ -41,11 +47,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { auth, profile, messageError } = this.props;
-
-    if (!auth.uid) {
-      return <Redirect to='/signin' />;
-    }
+    const { profile, messageError } = this.props;
 
     return (
       <Layout title="Profile">
@@ -73,16 +75,17 @@ class Profile extends Component {
   }
 }
 Profile.propTypes = {
-  auth: PropTypes.object,
+  authExists: PropTypes.bool,
   profile: PropTypes.object,
   getProfileMessageAction: PropTypes.func,
   updateProfileMessageAction: PropTypes.func,
-  messageError: PropTypes.string
+  messageError: PropTypes.string,
+  history: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
+    authExists: !!state.firebase.auth && !!state.firebase.auth.uid,
     profile: state.firebase.profile,
     messageError: state.message.messageError
   };
