@@ -17,11 +17,13 @@ export const getProfileMessageAction = () => {
       .where('authorId', '==', uid)
       .get()
       .then(snapshot => {
-        // update the profile with the users message
-        const { text } = snapshot.docs[0].data();
-        firebase.updateProfile({ message: text });
+        if (snapshot.docs.length && !snapshot.empty) {
+          // update the profile with the users message
+          const { text } = snapshot.docs[0].data();
+          firebase.updateProfile({ message: text });
 
-        dispatch(dispatchAction(GET_MESSAGE_SUCCESS));
+          dispatch(dispatchAction(GET_MESSAGE_SUCCESS));
+        }
       })
       .catch(err => dispatch(dispatchAction(GET_MESSAGE_FAIL, err)));
   };
@@ -38,12 +40,30 @@ export const updateProfileMessageAction = (message) => {
       .where('authorId', '==', uid)
       .get()
       .then(snapshot => {
-        return firestore
-          .collection('messages')
-          .doc(snapshot.docs[0].id)
-          .update({
-            text: message
-          });
+        if (!snapshot.docs.length && snapshot.empty) {
+          const { firstname, lastname } = getState().firebase.profile;
+          return firestore
+            .collection('messages')
+            .doc()
+            .set({
+              authorId: uid,
+              authorFirstName: firstname,
+              authorLastName: lastname,
+              text: message
+            });
+        } else if (!message) {
+          return firestore
+            .collection('messages')
+            .doc(snapshot.docs[0].id)
+            .delete();
+        } else {
+          return firestore
+            .collection('messages')
+            .doc(snapshot.docs[0].id)
+            .update({
+              text: message
+            });
+        }
       })
       .then(() => {
         firebase.updateProfile({ message });

@@ -54,7 +54,6 @@ class Profile extends Component {
             src={`https://randomuser.me/api/portraits/med/lego/${this.profilePic}.jpg`}
             alt='profile pic' />
           <p><span>Name</span>{`${profile.firstname} ${profile.lastname}`}</p>
-          <p><span>Occupation</span>{profile.occupation}</p>
           <div>
             <form onSubmit={this.handleOnSubmit}>
               <Input
