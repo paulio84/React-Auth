@@ -20,4 +20,9 @@ export default createGlobalStyle`
   label {
     text-transform: capitalize; 
   }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+  }
 `;
