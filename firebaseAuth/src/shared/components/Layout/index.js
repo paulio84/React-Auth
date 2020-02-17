@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Container } from '../../utils/Styles';
+
 const Layout = ({ title, children }) => {
   return (
-    <div>
+    <Container>
       <h1>{title}</h1>
       {children}
-    </div>
+    </Container>
   );
 };
 Layout.propTypes = {

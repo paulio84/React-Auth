@@ -17,3 +17,8 @@ export const NavLinksItem = styled.li`
   margin-left: 1em;
 `;
 
+export const Container = styled.div`
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 0 1em;
+`;

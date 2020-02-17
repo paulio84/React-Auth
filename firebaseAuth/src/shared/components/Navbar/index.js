@@ -5,16 +5,21 @@ import PropTypes from 'prop-types';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 
-import { StyledHeader, SiteLogoLink } from './Styles';
+import { Header, HeaderBox, SiteLogoLink } from './Styles';
+import { Container } from '../../utils/Styles';
 
 const Navbar = ({ auth }) => {
   return (
-    <StyledHeader>
-      <SiteLogoLink to='/'>ReactAuth</SiteLogoLink>
-      <nav>
-        {auth.uid ? <SignedInLinks /> : <SignedOutLinks />}
-      </nav>
-    </StyledHeader>
+    <Header>
+      <Container>
+        <HeaderBox>
+          <SiteLogoLink to='/'>ReactAuth</SiteLogoLink>
+          <nav>
+            {auth.uid ? <SignedInLinks /> : <SignedOutLinks />}
+          </nav>
+        </HeaderBox>
+      </Container>
+    </Header>
   );
 };
 Navbar.propTypes = {
