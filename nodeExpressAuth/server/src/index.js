@@ -5,6 +5,7 @@ const debug = require('debug')('app');
 
 require('dotenv').config();
 
+const placesRouter = require('./places/places.router');
 const { notFound, errorHandler } = require('./common/middlewares/errorHandling');
 
 const app = express();
@@ -13,6 +14,9 @@ const app = express();
 app.use(morgan('common'));
 app.use(helmet());
 app.use(express.json());
+
+// places API
+app.use('/api/places', placesRouter);
 
 // handle errors
 app.use(notFound);
