@@ -22,10 +22,25 @@ const Places = mongoose.model('Places', placesSchema);
 exports.GetAllPlaces = () => new Promise((resolve, reject) => {
   Places.find()
     .exec((err, places) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(places);
-      }
+      if (err) reject(err);
+
+      resolve(places);
     });
+});
+
+exports.GetPlaceById = (placeId) => new Promise((resolve, reject) => {
+  Places.findById(placeId)
+    .exec((err, place) => {
+      if (err) reject(err);
+
+      resolve(place);
+    });
+});
+
+exports.CreatePlace = (place) => new Promise((resolve, reject) => {
+  Places.create(place, (err, createdPlace) => {
+    if (err) reject(err);
+
+    resolve(createdPlace);
+  });
 });
