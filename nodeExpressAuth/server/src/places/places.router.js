@@ -10,6 +10,8 @@ placesRouter
   .get('/:placeId', [placesController.GetPlaceById])
   // POST /api/places/
   .post('/', [placesController.CreatePlace])
+  // PUT /api/places/:placeId
+  .put('/:placeId', [placesController.UpdatePlace])
   // DELETE /api/places/:placeId
   .delete('/:placeId', [placesController.DeletePlace]);
 

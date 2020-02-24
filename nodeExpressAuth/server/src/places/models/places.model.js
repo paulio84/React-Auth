@@ -29,12 +29,11 @@ exports.GetAllPlaces = () => new Promise((resolve, reject) => {
 });
 
 exports.GetPlaceById = (placeId) => new Promise((resolve, reject) => {
-  Places.findById(placeId)
-    .exec((err, place) => {
-      if (err) reject(err);
+  Places.findById(placeId, (err, place) => {
+    if (err) reject(err);
 
-      resolve(place);
-    });
+    resolve(place);
+  }).orFail();
 });
 
 exports.CreatePlace = (place) => new Promise((resolve, reject) => {
@@ -43,6 +42,23 @@ exports.CreatePlace = (place) => new Promise((resolve, reject) => {
 
     resolve(createdPlace);
   });
+});
+
+exports.UpdatePlace = (placeId, place) => new Promise((resolve, reject) => {
+  Places.findById(placeId, (findErr, placeData) => {
+    if (findErr) reject(findErr);
+
+    if (placeData) {
+      // using Object.assign here because placeData is a places.model object
+      const updatedPlace = Object.assign(placeData, place);
+
+      updatedPlace.save((updateErr) => {
+        if (updateErr) reject(updateErr);
+
+        resolve();
+      });
+    }
+  }).orFail();
 });
 
 exports.DeletePlace = (placeId) => new Promise((resolve, reject) => {

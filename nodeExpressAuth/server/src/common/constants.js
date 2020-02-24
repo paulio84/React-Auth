@@ -1,1 +1,4 @@
-module.exports = { VALIDATION_ERROR: 'ValidationError' };
+module.exports = {
+  VALIDATION_ERROR: 'ValidationError',
+  NO_DOCUMENT_FOUND: 'DocumentNotFoundError'
+};
