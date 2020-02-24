@@ -44,3 +44,11 @@ exports.CreatePlace = (place) => new Promise((resolve, reject) => {
     resolve(createdPlace);
   });
 });
+
+exports.DeletePlace = (placeId) => new Promise((resolve, reject) => {
+  Places.deleteOne({ _id: placeId }, (err) => {
+    if (err) reject(err);
+
+    resolve();
+  });
+});

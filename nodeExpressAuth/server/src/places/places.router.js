@@ -11,8 +11,6 @@ placesRouter
   // POST /api/places/
   .post('/', [placesController.CreatePlace])
   // DELETE /api/places/:placeId
-  .delete('/:placeId', (req, res) => {
-
-  });
+  .delete('/:placeId', [placesController.DeletePlace]);
 
 module.exports = placesRouter;
