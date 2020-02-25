@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const authRouter = require('./auth/auth.router');
 const placesRouter = require('./places/places.router');
-const { notFound, errorHandler } = require('./common/middlewares/errorHandling');
+const { notFound, errorHandler } = require('./common/middlewares/errorhandler.middleware');
 
 const app = express();
 

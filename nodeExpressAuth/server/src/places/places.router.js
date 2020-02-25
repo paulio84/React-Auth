@@ -1,9 +1,11 @@
 const express = require('express');
 const placesController = require('./controllers/places.controller');
+const authValidation = require('../common/middlewares/auth.validation.middleware');
 
 const placesRouter = express.Router();
 
 placesRouter
+  .all('*', [authValidation.validTokenNeeded])
   // GET /api/places/
   .get('/', [placesController.GetAllPlaces])
   // GET /api/places/:placeId

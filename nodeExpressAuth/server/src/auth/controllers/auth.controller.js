@@ -28,7 +28,7 @@ exports.Register = async (req, res, next) => {
     const createdUser = await userModel.CreateUser(user);
 
     // create JWT token
-    const payload = { sub: createdUser.email, jti: uuid.v4() };
+    const payload = { sub: createdUser.id, jti: uuid.v4() };
     const secret = process.env.JWT_SECRET;
     const options = {
       issuer: process.env.JWT_ISSUER,
@@ -39,8 +39,7 @@ exports.Register = async (req, res, next) => {
     const token = jwt.sign(payload, secret, options);
     return res.status(201).json({
       token,
-      expiredIn: options.expiresIn,
-      uid: createdUser.id
+      expiredIn: options.expiresIn
     });
   } catch (err) {
     res.status(500);
