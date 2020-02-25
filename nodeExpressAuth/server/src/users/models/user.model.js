@@ -8,7 +8,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator, { message: '{PATH} "{VALUE}" is already taken.' });
 
 const User = mongoose.model('Users', userSchema);
 

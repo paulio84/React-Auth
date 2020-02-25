@@ -10,12 +10,13 @@ exports.hasValidAuthFields = (req, res, next) => {
       errors.push('Password is required.');
     }
 
-    if (errors.length) {
-      return res.status(400).send({ errors: errors.join(',') });
+    if (!errors.length) {
+      return next();
     }
-
-    return next();
+  } else {
+    errors.push('Email and password required.');
   }
 
-  return res.status(400).send({ errors: 'Email and password required.' });
+  res.status(400);
+  return next(new Error(errors));
 };

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const userModel = require('../../users/models/user.model');
+const { VALIDATION_ERROR } = require('../../common/constants');
 
 exports.Register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -25,7 +26,9 @@ exports.Register = async (req, res, next) => {
     const createdUser = await userModel.CreateUser(user);
     console.log(createdUser);
   } catch (err) {
-    console.log(err);
+    res.status(500);
+    if (err.name === VALIDATION_ERROR) res.status(400);
+
     return next(err);
   }
 

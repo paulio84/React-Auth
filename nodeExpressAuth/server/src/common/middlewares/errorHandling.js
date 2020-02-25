@@ -10,7 +10,6 @@ const errorHandler = ((err, req, res, next) => {
   res.status(statusCode);
 
   const returnObject = {
-    status: res.statusCode,
     message: err.message
   };
   if (process.env.NODE_ENV !== 'production') returnObject.stack = err.stack;
