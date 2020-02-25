@@ -3,7 +3,7 @@ const { VALIDATION_ERROR, NO_DOCUMENT_FOUND } = require('../../common/constants'
 
 exports.GetAllPlaces = async (req, res, next) => {
   try {
-    const result = await placesModel.GetAllPlaces();
+    const result = await placesModel.GetAllPlaces(req.jwt.sub);
 
     return res.status(200).send(result);
   } catch (err) {
@@ -14,7 +14,10 @@ exports.GetAllPlaces = async (req, res, next) => {
 
 exports.GetPlaceById = async (req, res, next) => {
   try {
-    const result = await placesModel.GetPlaceById(req.params.placeId);
+    const result = await placesModel.GetPlaceById(
+      req.params.placeId,
+      req.jwt.sub
+    );
 
     return res.status(200).send(result);
   } catch (err) {
@@ -27,6 +30,7 @@ exports.GetPlaceById = async (req, res, next) => {
 
 exports.CreatePlace = async (req, res, next) => {
   try {
+    req.body.userId = req.jwt.sub;
     const result = await placesModel.CreatePlace(req.body);
     res.location(`${process.env.BASE_URL}${req.baseUrl}/${result.id}`);
 
@@ -41,7 +45,11 @@ exports.CreatePlace = async (req, res, next) => {
 
 exports.UpdatePlace = async (req, res, next) => {
   try {
-    await placesModel.UpdatePlace(req.params.placeId, req.body);
+    await placesModel.UpdatePlace(
+      req.params.placeId,
+      req.jwt.sub,
+      req.body
+    );
 
     return res.sendStatus(204);
   } catch (err) {
@@ -54,11 +62,13 @@ exports.UpdatePlace = async (req, res, next) => {
 
 exports.DeletePlace = async (req, res, next) => {
   try {
-    await placesModel.DeletePlace(req.params.placeId);
+    await placesModel.DeletePlace(req.params.placeId, req.jwt.sub);
 
     return res.sendStatus(204);
   } catch (err) {
     res.status(500);
+    if (err.name === NO_DOCUMENT_FOUND) res.status(404);
+
     return next(err);
   }
 };

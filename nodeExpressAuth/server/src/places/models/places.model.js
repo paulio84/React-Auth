@@ -14,22 +14,22 @@ const placesSchema = new Schema({
   start_date: Date,
   end_date: Date,
   latitude: Number,
-  longitude: Number
+  longitude: Number,
+  userId: { type: String, required: true }
 });
 
 const Places = mongoose.model('Places', placesSchema);
 
-exports.GetAllPlaces = () => new Promise((resolve, reject) => {
-  Places.find()
-    .exec((err, places) => {
-      if (err) reject(err);
+exports.GetAllPlaces = (userId) => new Promise((resolve, reject) => {
+  Places.find({ userId }, (err, places) => {
+    if (err) reject(err);
 
-      resolve(places);
-    });
+    resolve(places);
+  });
 });
 
-exports.GetPlaceById = (placeId) => new Promise((resolve, reject) => {
-  Places.findById(placeId, (err, place) => {
+exports.GetPlaceById = (placeId, userId) => new Promise((resolve, reject) => {
+  Places.findOne({ _id: placeId, userId }, (err, place) => {
     if (err) reject(err);
 
     resolve(place);
@@ -44,8 +44,8 @@ exports.CreatePlace = (place) => new Promise((resolve, reject) => {
   });
 });
 
-exports.UpdatePlace = (placeId, place) => new Promise((resolve, reject) => {
-  Places.findById(placeId, (findErr, placeData) => {
+exports.UpdatePlace = (placeId, userId, place) => new Promise((resolve, reject) => {
+  Places.findOne({ _id: placeId, userId }, (findErr, placeData) => {
     if (findErr) reject(findErr);
 
     if (placeData) {
@@ -61,10 +61,10 @@ exports.UpdatePlace = (placeId, place) => new Promise((resolve, reject) => {
   }).orFail();
 });
 
-exports.DeletePlace = (placeId) => new Promise((resolve, reject) => {
-  Places.deleteOne({ _id: placeId }, (err) => {
+exports.DeletePlace = (placeId, userId) => new Promise((resolve, reject) => {
+  Places.findOneAndDelete({ _id: placeId, userId }, (err) => {
     if (err) reject(err);
 
     resolve();
-  });
+  }).orFail();
 });
