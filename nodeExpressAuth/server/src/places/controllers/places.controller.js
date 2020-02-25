@@ -27,7 +27,7 @@ exports.GetPlaceById = async (req, res, next) => {
 
 exports.CreatePlace = async (req, res, next) => {
   try {
-    const result = await placesModel.CreatePlace(req.body.place);
+    const result = await placesModel.CreatePlace(req.body);
     res.location(`${process.env.BASE_URL}${req.baseUrl}/${result.id}`);
 
     return res.status(201).send(result);
@@ -41,7 +41,7 @@ exports.CreatePlace = async (req, res, next) => {
 
 exports.UpdatePlace = async (req, res, next) => {
   try {
-    await placesModel.UpdatePlace(req.params.placeId, req.body.place);
+    await placesModel.UpdatePlace(req.params.placeId, req.body);
 
     return res.sendStatus(204);
   } catch (err) {
