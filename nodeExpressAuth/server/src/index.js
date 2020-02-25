@@ -5,6 +5,7 @@ const debug = require('debug')('app');
 
 require('dotenv').config();
 
+const authRouter = require('./auth/auth.router');
 const placesRouter = require('./places/places.router');
 const { notFound, errorHandler } = require('./common/middlewares/errorHandling');
 
@@ -15,6 +16,9 @@ app.use(morgan('common'));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// auth
+app.use('/auth', authRouter);
 
 // places API
 app.use('/api/places', placesRouter);

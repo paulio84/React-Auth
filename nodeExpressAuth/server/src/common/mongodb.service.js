@@ -19,6 +19,7 @@ const connectWithRetry = () => {
       debug(`MongoDB connection unsuccessful, retry: ${count += 1}: ${err.message}`);
       setTimeout(connectWithRetry, 5000);
     });
+  mongoose.set('useCreateIndex', true);
 };
 
 connectWithRetry();
