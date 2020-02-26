@@ -44,22 +44,26 @@ exports.CreatePlace = (place) => new Promise((resolve, reject) => {
   });
 });
 
-exports.UpdatePlace = (placeId, userId, place) => new Promise((resolve, reject) => {
-  Places.findOne({ _id: placeId, userId }, (findErr, placeData) => {
-    if (findErr) reject(findErr);
+exports.UpdatePlace = async (placeId, userId, place) => {
+  await Places.validate(place, ['name', 'description', 'rating']);
 
-    if (placeData) {
-      // using Object.assign here because placeData is a places.model object
-      const updatedPlace = Object.assign(placeData, place);
+  return new Promise((resolve, reject) => {
+    Places.findOne({ _id: placeId, userId }, (findErr, placeData) => {
+      if (findErr) reject(findErr);
 
-      updatedPlace.save((updateErr) => {
-        if (updateErr) reject(updateErr);
+      if (placeData) {
+        // using Object.assign here because placeData is a places.model object
+        const updatedPlace = Object.assign(placeData, place);
 
-        resolve();
-      });
-    }
-  }).orFail();
-});
+        updatedPlace.save((updateErr) => {
+          if (updateErr) reject(updateErr);
+
+          resolve();
+        });
+      }
+    }).orFail();
+  });
+};
 
 exports.DeletePlace = (placeId, userId) => new Promise((resolve, reject) => {
   Places.findOneAndDelete({ _id: placeId, userId }, (err) => {

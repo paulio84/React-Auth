@@ -22,7 +22,10 @@ exports.GetPlaceById = async (req, res, next) => {
     return res.status(200).send(result);
   } catch (err) {
     res.status(500);
-    if (err.name === NO_DOCUMENT_FOUND) res.status(404);
+    if (err.name === NO_DOCUMENT_FOUND) {
+      res.status(404);
+      err.message = 'No document found!';
+    }
 
     return next(err);
   }
@@ -54,7 +57,12 @@ exports.UpdatePlace = async (req, res, next) => {
     return res.sendStatus(204);
   } catch (err) {
     res.status(500);
-    if (err.name === NO_DOCUMENT_FOUND) res.status(404);
+    if (err.name === VALIDATION_ERROR) res.status(400);
+
+    if (err.name === NO_DOCUMENT_FOUND) {
+      res.status(404);
+      err.message = 'No document found!';
+    }
 
     return next(err);
   }
@@ -67,7 +75,10 @@ exports.DeletePlace = async (req, res, next) => {
     return res.sendStatus(204);
   } catch (err) {
     res.status(500);
-    if (err.name === NO_DOCUMENT_FOUND) res.status(404);
+    if (err.name === NO_DOCUMENT_FOUND) {
+      res.status(404);
+      err.message = 'No document found!';
+    }
 
     return next(err);
   }
