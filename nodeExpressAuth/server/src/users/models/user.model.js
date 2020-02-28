@@ -17,6 +17,14 @@ userSchema.plugin(uniqueValidator, { message: '"{VALUE}" is already taken.' });
 
 const User = mongoose.model('Users', userSchema);
 
+exports.FindByEmail = (email) => new Promise((resolve, reject) => {
+  User.findOne({ email }, ((err, user) => {
+    if (err) reject(err);
+
+    resolve(user);
+  })).orFail();
+});
+
 exports.CreateUser = (user) => new Promise((resolve, reject) => {
   User.create(user, (err, createdUser) => {
     if (err) reject(err);

@@ -14,7 +14,7 @@ const errorHandler = ((err, req, res, next) => {
   };
   if (process.env.NODE_ENV !== 'production') returnObject.stack = err.stack;
 
-  res.send(returnObject);
+  res.json(returnObject);
 });
 
 module.exports = {
