@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const debug = require('debug')('app');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -12,6 +13,11 @@ const { notFound, errorHandler } = require('./common/middlewares/errorhandler.mi
 const app = express();
 
 // load middlewares - morgan (for logging) and helmet (for setting various HTTP headers)
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 app.use(morgan('common'));
 app.use(helmet());
 app.use(express.json());
