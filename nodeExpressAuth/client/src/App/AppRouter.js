@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import Layout from './Layout';
 import LogIn from '../pages/LogIn';
@@ -7,9 +7,9 @@ import NotFound from '../pages/NotFound';
 import Places from '../pages/Places';
 import Register from '../pages/Register';
 
-const Router = () => {
+const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Layout>
         <Switch>
           <Route exact path='/'>
@@ -29,8 +29,8 @@ const Router = () => {
           </Route>
         </Switch>
       </Layout>
-    </BrowserRouter>
+    </Router>
   );
 };
 
-export default Router;
+export default AppRouter;
