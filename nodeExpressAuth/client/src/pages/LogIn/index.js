@@ -1,10 +1,15 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const LogIn = () => {
-  const [state, setState] = useState({});
+import { LoginAction } from '../../store/actions/authActions';
+
+const LogIn = ({ loginAction, authToken }) => {
+  const [state, setState] = useState({ email: 'test@example.com', password: 'test1234' });
 
   const handleSubmit = e => {
     e.preventDefault();
+    loginAction(state);
   };
 
   const handleInputChange = e => {
@@ -14,39 +19,57 @@ const LogIn = () => {
     });
   };
 
-  return (
-    <Fragment>
-      <h1>Log In</h1>
-      {/* Can this be made more generic Log In and Register are essentially the same form */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            name='email'
-            id='email'
-            required
-            autoComplete='email'
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            required
-            autoComplete='current-password'
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <button>Log In</button>
-        </div>
-      </form>
-    </Fragment>
-  );
+  if (authToken) {
+    return <Redirect to='/places' />;
+  } else {
+    return (
+      <Fragment>
+        <h1>Log In</h1>
+        {/* Can this be made more generic Log In and Register are essentially the same form */}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='email'>Email</label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              required
+              value={state.email}
+              autoComplete='email'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              name='password'
+              id='password'
+              required
+              value={state.password}
+              autoComplete='current-password'
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <button>Log In</button>
+          </div>
+        </form>
+      </Fragment>
+    );
+  }
 };
 
-export default LogIn;
+const mapState = (state) => {
+  return {
+    authToken: state.auth.token
+  };
+};
+
+const mapDispath = (dispatch) => {
+  return {
+    loginAction: (userCredentials) => dispatch(LoginAction(userCredentials))
+  };
+};
+
+export default connect(mapState, mapDispath)(LogIn);

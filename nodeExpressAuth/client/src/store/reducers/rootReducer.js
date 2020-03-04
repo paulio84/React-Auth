@@ -7,3 +7,10 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+
+/* state shape
+  {
+    auth: {...},
+    places: [ {...}, {...} ]
+  }
+*/
