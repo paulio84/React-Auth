@@ -1,7 +1,8 @@
-import { LOGIN_SUCCESS, LOGIN_ERROR } from '../actions/actionTypes';
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../actions/actionTypes';
 import {
   getAuthTokenFromLocalStorage,
-  setAuthTokenInLocalStorage
+  setAuthTokenInLocalStorage,
+  deleteAuthTokenFromLocalStorage
 } from '../../helpers';
 
 const initialState = { token: getAuthTokenFromLocalStorage(), error: null };
@@ -20,6 +21,12 @@ const authReducer = (state = initialState, action) => {
         ...state,
         token: '',
         error: action.errorMessage
+      };
+    case LOGOUT:
+      deleteAuthTokenFromLocalStorage();
+      return {
+        ...state,
+        token: getAuthTokenFromLocalStorage()
       };
     default:
       return state;

@@ -1,13 +1,22 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const LoggedInLinks = () => {
+import { LogoutAction } from '../../../../../store/actions/authActions';
+
+const LoggedInLinks = ({ logout }) => {
   return (
     <Fragment>
       <li><NavLink to='/places'>Places</NavLink></li>
-      <li>Log Out</li>
+      <li><a href='#!' onClick={logout}>Log Out</a></li>
     </Fragment>
   );
 };
 
-export default LoggedInLinks;
+const mapDispatch = (dispatch) => {
+  return {
+    logout: () => dispatch(LogoutAction())
+  };
+};
+
+export default connect(null, mapDispatch)(LoggedInLinks);

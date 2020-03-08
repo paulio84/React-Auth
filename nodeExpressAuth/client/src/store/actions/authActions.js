@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_SUCCESS, LOGIN_ERROR } from './actionTypes';
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from './actionTypes';
 
 export function LoginAction(userCredentials) {
   return function (dispatch) {
@@ -11,6 +11,10 @@ export function LoginAction(userCredentials) {
       );
   };
 };
+
+export function LogoutAction() {
+  return { type: LOGOUT };
+}
 
 function loginSucces(token) {
   return {
