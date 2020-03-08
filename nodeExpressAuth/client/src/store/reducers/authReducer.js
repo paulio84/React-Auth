@@ -1,10 +1,15 @@
 import { LOGIN_SUCCESS, LOGIN_ERROR } from '../actions/actionTypes';
+import {
+  getAuthTokenFromLocalStorage,
+  setAuthTokenInLocalStorage
+} from '../../helpers';
 
-const initialState = { token: '', error: null };
+const initialState = { token: getAuthTokenFromLocalStorage(), error: null };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
+      setAuthTokenInLocalStorage(action.token);
       return {
         ...state,
         token: action.token,

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { LoginAction } from '../../store/actions/authActions';
 
 const LogIn = ({ loginAction, authToken }) => {
-  const [state, setState] = useState({ email: 'test@example.com', password: 'test1234' });
+  const [state, setState] = useState({ email: '', password: '' });
 
   const handleSubmit = e => {
     e.preventDefault();
