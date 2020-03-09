@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import { LoginAction } from '../../store/actions/authActions';
 
-const LogIn = ({ loginAction, authToken }) => {
+const LogIn = ({ loginAction, authToken, errorMessage }) => {
   const [state, setState] = useState({ email: '', password: '' });
 
   const handleSubmit = e => {
@@ -53,6 +53,7 @@ const LogIn = ({ loginAction, authToken }) => {
           </div>
           <div>
             <button>Log In</button>
+            <p>{errorMessage}</p>
           </div>
         </form>
       </Fragment>
@@ -62,7 +63,8 @@ const LogIn = ({ loginAction, authToken }) => {
 
 const mapState = (state) => {
   return {
-    authToken: state.auth.token
+    authToken: state.auth.token,
+    errorMessage: state.auth.error
   };
 };
 
