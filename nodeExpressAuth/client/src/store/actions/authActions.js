@@ -7,7 +7,13 @@ export function LoginAction(userCredentials) {
     axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, userCredentials)
       .then(
         response => dispatch(loginSucces(response.data.token)),
-        error => dispatch(loginError(error.response.data.message))
+        error => {
+          if (error.response) {
+            dispatch(loginError(error.response.data.message));
+          } else {
+            dispatch(loginError(error.message));
+          }
+        }
       );
   };
 };
