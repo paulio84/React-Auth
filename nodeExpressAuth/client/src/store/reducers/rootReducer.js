@@ -1,16 +1,11 @@
 import { combineReducers } from 'redux';
 
 import authReducer from './authReducer';
+import placesReducer from './placesReducer';
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  places: placesReducer
 });
 
 export default rootReducer;
-
-/* state shape
-  {
-    auth: {...},
-    places: [ {...}, {...} ]
-  }
-*/

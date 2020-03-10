@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const Places = ({ authToken }) => {
+import { FetchPlacesAction } from '../../store/actions/placesActions';
+
+const Places = ({ authToken, fetchPlaces, places }) => {
+  useEffect(() => {
+    fetchPlaces();
+  }, [fetchPlaces]);
+
   if (!authToken) {
     return <Redirect to='/login' />;
   } else {
@@ -14,8 +20,15 @@ const Places = ({ authToken }) => {
 
 const mapState = (state) => {
   return {
-    authToken: state.auth.token
+    authToken: state.auth.token,
+    places: state.places.data
   };
 };
 
-export default connect(mapState)(Places);
+const mapDispatch = dispatch => {
+  return {
+    fetchPlaces: () => dispatch(FetchPlacesAction())
+  };
+};
+
+export default connect(mapState, mapDispatch)(Places);
