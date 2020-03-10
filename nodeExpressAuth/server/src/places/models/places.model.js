@@ -21,19 +21,27 @@ const placesSchema = new Schema({
 const Places = mongoose.model('Places', placesSchema);
 
 exports.GetAllPlaces = (userId) => new Promise((resolve, reject) => {
-  Places.find({ userId }, (err, places) => {
-    if (err) reject(err);
+  Places.find(
+    { userId },
+    { name: 1, description: 1, rating: 1 },
+    (err, places) => {
+      if (err) reject(err);
 
-    resolve(places);
-  });
+      resolve(places);
+    }
+  );
 });
 
 exports.GetPlaceById = (placeId, userId) => new Promise((resolve, reject) => {
-  Places.findOne({ _id: placeId, userId }, (err, place) => {
-    if (err) reject(err);
+  Places.findOne(
+    { _id: placeId, userId },
+    { name: 1, description: 1, rating: 1 },
+    (err, place) => {
+      if (err) reject(err);
 
-    resolve(place);
-  }).orFail();
+      resolve(place);
+    }
+  ).orFail();
 });
 
 exports.CreatePlace = (place) => new Promise((resolve, reject) => {
