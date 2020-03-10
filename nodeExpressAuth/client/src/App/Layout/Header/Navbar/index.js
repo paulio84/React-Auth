@@ -1,17 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import LoggedInLinks from './LoggedInLinks';
 import LoggedOutLinks from './LoggedOutLinks';
 
-const Navbar = () => {
+const Navbar = ({ authToken }) => {
   return (
     <nav>
       <ul>
-        <LoggedInLinks />
-        <LoggedOutLinks />
+        {authToken && <LoggedInLinks />}
+        {!authToken && <LoggedOutLinks />}
       </ul>
     </nav>
   );
 };
 
-export default Navbar;
+const mapState = (state) => {
+  return {
+    authToken: state.auth.token
+  };
+};
+
+export default connect(mapState)(Navbar);
