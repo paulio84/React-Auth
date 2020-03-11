@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: getAuthTokenFromLocalStorage(),
-        error: null
+        error: action.errorMessage
       };
     default:
       return state;

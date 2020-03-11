@@ -18,8 +18,11 @@ export function LoginAction(userCredentials) {
   };
 };
 
-export function LogoutAction() {
-  return { type: LOGOUT };
+export function LogoutAction(errorMessage) {
+  return {
+    type: LOGOUT,
+    errorMessage
+  };
 }
 
 function loginSucces(token) {

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { FetchPlacesAction } from '../../store/actions/placesActions';
 import PlacesList from './PlacesList';
 
-const Places = ({ authToken, fetchPlaces, places }) => {
+const Places = ({ authToken, fetchPlaces, places, error }) => {
   useEffect(() => {
     fetchPlaces();
   }, [fetchPlaces]);
@@ -16,7 +16,11 @@ const Places = ({ authToken, fetchPlaces, places }) => {
     return (
       <Fragment>
         <h1>Places</h1>
-        <PlacesList places={places} />
+        {
+          error
+            ? <p>{error}</p>
+            : <PlacesList places={places} />
+        }
       </Fragment>
     );
   }
@@ -25,7 +29,8 @@ const Places = ({ authToken, fetchPlaces, places }) => {
 const mapState = (state) => {
   return {
     authToken: state.auth.token,
-    places: state.places.data || []
+    places: state.places.data || [],
+    error: state.places.error
   };
 };
 

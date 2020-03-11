@@ -3,7 +3,7 @@ import {
   FETCH_PLACES_ERROR
 } from '../actions/actionTypes';
 
-const initialState = [];
+const initialState = {};
 
 const placesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,7 +17,7 @@ const placesReducer = (state = initialState, action) => {
       return {
         ...state,
         data: null,
-        error: action.error
+        error: action.errorMessage
       };
     default:
       return state;

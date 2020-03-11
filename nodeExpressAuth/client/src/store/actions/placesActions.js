@@ -5,6 +5,8 @@ import {
   FETCH_PLACES_ERROR
 } from '../actions/actionTypes';
 
+import { LogoutAction } from './authActions';
+
 export function FetchPlacesAction() {
   return async function (dispatch, getState) {
     const authToken = getState().auth.token;
@@ -19,7 +21,11 @@ export function FetchPlacesAction() {
 
       dispatch(fetchPlacesSuccess(response.data));
     } catch (error) {
-      dispatch(fetchPlacesError(error.message));
+      if (error.response.status === 403) {
+        dispatch(LogoutAction("Access denied: It's possible your login has expired."));
+      } else {
+        dispatch(fetchPlacesError(error.response.data.message));
+      }
     }
   };
 }
@@ -31,9 +37,9 @@ function fetchPlacesSuccess(data) {
   };
 }
 
-function fetchPlacesError(error) {
+function fetchPlacesError(errorMessage) {
   return {
     type: FETCH_PLACES_ERROR,
-    error
+    errorMessage
   };
 }

@@ -15,7 +15,7 @@ const LoggedInLinks = ({ logout }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    logout: () => dispatch(LogoutAction())
+    logout: () => dispatch(LogoutAction(null))
   };
 };
 
