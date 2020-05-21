@@ -7,10 +7,7 @@ import LoggedOutLinks from './LoggedOutLinks';
 const Navbar = ({ authToken }) => {
   return (
     <nav>
-      <ul>
-        {authToken && <LoggedInLinks />}
-        {!authToken && <LoggedOutLinks />}
-      </ul>
+      {authToken ? <LoggedInLinks /> : <LoggedOutLinks />}
     </nav>
   );
 };

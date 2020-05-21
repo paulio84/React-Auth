@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const LoggedOutLinks = () => {
   return (
-    <Fragment>
+    <ul>
       <li><NavLink to='/login'>Log In</NavLink></li>
       <li><NavLink to='/register'>Register</NavLink></li>
-    </Fragment>
+    </ul>
   );
 };
 

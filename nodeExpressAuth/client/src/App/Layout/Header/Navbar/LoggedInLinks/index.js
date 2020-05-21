@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -6,10 +6,10 @@ import { LogoutAction } from '../../../../../store/actions/authActions';
 
 const LoggedInLinks = ({ logout }) => {
   return (
-    <Fragment>
+    <ul>
       <li><NavLink to='/places'>Places</NavLink></li>
       <li><a href='#!' onClick={logout}>Log Out</a></li>
-    </Fragment>
+    </ul>
   );
 };
 
