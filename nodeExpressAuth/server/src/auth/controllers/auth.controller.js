@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const userModel = require('../../users/models/user.model');
@@ -15,15 +15,18 @@ exports.Register = async (req, res, next) => {
       [username] = email.split('@');
     }
 
-    // hash the password
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+    // create a unique salt for the user
+    const salt = crypto.randomBytes(16).toString('hex');
+
+    // Hashing users salt and password with 1000 iterations, 64 length and sha512 digest
+    const passwordHash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
 
     // create and store the user
     const user = {
       username,
       email,
-      password: passwordHash
+      password: passwordHash,
+      salt
     };
     await userModel.CreateUser(user);
 
@@ -42,7 +45,9 @@ exports.login = async (req, res, next) => {
     const user = await userModel.FindByEmail(req.body.email);
 
     // if found, check the password
-    const passwordsMatch = await bcrypt.compare(req.body.password, user.password);
+    const hash = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, 'sha512').toString('hex');
+
+    const passwordsMatch = (hash === user.password);
     if (!passwordsMatch) {
       res.status(401);
       return next(new Error('There was an error with this email and password combination.'));

@@ -18,7 +18,7 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
-app.use(morgan('common'));
+app.use(morgan('tiny'));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,5 +33,5 @@ app.use('/api/places', placesRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const port = process.env.PORT || 1234;
+const port = process.env.PORT || 3001;
 app.listen(port, () => debug(`Listening at: http://localhost:${port}/`));

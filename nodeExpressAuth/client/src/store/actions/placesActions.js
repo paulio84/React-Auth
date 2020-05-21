@@ -10,14 +10,17 @@ import { LogoutAction } from './authActions';
 export function FetchPlacesAction() {
   return async function (dispatch, getState) {
     const authToken = getState().auth.token;
+    if (!authToken) {
+      dispatch(LogoutAction(null));
+      return;
+    }
+
     const requestConfig = {
       headers: { 'Authorization': `Bearer ${authToken}` }
     };
 
     try {
-      const response =
-        await axios
-          .get(`${process.env.REACT_APP_API_URL}/api/places`, requestConfig);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/places`, requestConfig);
 
       dispatch(fetchPlacesSuccess(response.data));
     } catch (error) {

@@ -11,11 +11,12 @@ const userSchema = new Schema({
     unique: true,
     match: [/\S+@\S+\.\S+/, '"{VALUE}" is invalid.']
   },
-  password: { type: String, required: 'Password is required.' }
+  password: { type: String, required: 'Password is required.' },
+  salt: String
 });
 userSchema.plugin(uniqueValidator, { message: '"{VALUE}" is already taken.' });
 
-const User = mongoose.model('Users', userSchema);
+const User = mongoose.model('User', userSchema);
 
 exports.FindByEmail = (email) => new Promise((resolve, reject) => {
   User.findOne({ email }, ((err, user) => {
